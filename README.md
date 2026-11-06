@@ -38,3 +38,7 @@ To run it locally, open `index.html` in any modern browser. All the UI text live
 ---
 
 一位側邊麻花辮女生帶著機器人去吃迴轉壽司，你負責分餐：壽司給她，螺絲軍艦給它。
+
+## License
+
+[MIT](LICENSE)

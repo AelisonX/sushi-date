@@ -42,6 +42,9 @@ const TEXT = {
   failGirl: 'You eat it.',
   failMiss: "Didn't you say you'd grab it?",
   envy: '...can I have it?',
+  speedUp: 'SPEED UP!',
+  newMenu: 'NEW ON THE MENU!',
+  newTag: 'NEW',
   titleBot: 'Bolt has crashed.',
   titleGirl: 'Yuki is NOT amused.',
   titleMiss: 'A plate got away.',
@@ -51,7 +54,9 @@ const TEXT = {
     salmon: 'Salmon Nigiri', tuna: 'Tuna Gunkan', tamago: 'Tamago Nigiri',
     shrimp: 'Shrimp Nigiri', ikura: 'Ikura Gunkan',
     screw: 'Screw Gunkan', battery: 'Lithium Tamago', ram: 'RAM Maki',
-    usb: 'USB Tempura', bearing: 'Ball-Bearing Gunkan'
+    usb: 'USB Tempura', bearing: 'Ball-Bearing Gunkan',
+    unagi: 'Unagi Nigiri', hotate: 'Scallop Nigiri', kappa: 'Cucumber Maki', inari: 'Inari Pocket',
+    gear: 'Gear Nigiri', spring: 'Spring Gunkan', led: 'LED Ikura', cable: 'Cable Maki'
   }
 };
 
@@ -373,10 +378,105 @@ const FOODS = {
       ctx.restore();
     });
     sparkle(36, -64, 6);
+  } },
+  // ---- tier 2 / 3 menu (unlocked during a run) ----
+  unagi: { type: 'human', draw() {
+    rice();
+    const g = ctx.createLinearGradient(0, -46, 0, -18); g.addColorStop(0, '#a65a2a'); g.addColorStop(1, '#6e3416');
+    rr(-47, -45, 94, 27, 12); fs(g, OUT, 3);
+    ctx.save(); rr(-47, -45, 94, 27, 12); ctx.clip();
+    for (let i = 0; i < 5; i++) line(-36 + i * 18, -44, -30 + i * 18, -20, 'rgba(60,20,5,0.45)', 3);
+    ctx.restore();
+    rr(-38, -41, 40, 5, 2); ctx.fillStyle = 'rgba(255,230,190,0.55)'; ctx.fill();
+    ctx.fillStyle = '#fff3d6'; [[-22, -30], [8, -36], [26, -28]].forEach(p => { ell(p[0], p[1], 2.4, 1.4, 0.5); ctx.fill(); });
+    noriBand(4);
+  } },
+  hotate: { type: 'human', draw() {
+    rice();
+    ell(0, -34, 42, 15); fs('#fff1e2', OUT, 3);
+    ell(0, -36, 30, 9); ctx.strokeStyle = '#f0d2b8'; ctx.lineWidth = 2.5; ctx.stroke();
+    ell(0, -37, 16, 5); ctx.stroke();
+    ell(-14, -40, 9, 3); ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fill();
+    ell(28, -46, 7, 5, -0.4); fs('#9fd86f', OUT, 1.8);
+  } },
+  kappa: { type: 'human', draw() {
+    [-25, 25].forEach(x => {
+      rr(x - 25, -38, 50, 34, 10); fs('#24382f', OUT, 3);
+      ell(x, -38, 25, 17); fs('#24382f', OUT, 3);
+      ell(x, -38, 20, 13); fs('#fffaf0');
+      ell(x, -38, 9, 6); fs('#5fbf5a', '#3c8a3a', 2);
+      ell(x, -38, 4, 2.6); ctx.fillStyle = '#c9f0a8'; ctx.fill();
+    });
+  } },
+  inari: { type: 'human', draw() {
+    const g = ctx.createLinearGradient(0, -50, 0, 4); g.addColorStop(0, '#e6a24a'); g.addColorStop(1, '#b8702a');
+    rr(-44, -46, 88, 50, 22); fs(g, OUT, 3);
+    ell(0, -44, 36, 10); fs('#fffaf0', OUT, 2.5);
+    ctx.fillStyle = '#8a5a2a'; [[-12, -45], [6, -43], [18, -46]].forEach(p => { ell(p[0], p[1], 2, 1.2, 0.4); ctx.fill(); });
+    ctx.fillStyle = 'rgba(140,80,30,0.35)';
+    [[-28, -24], [-10, -16], [10, -26], [26, -14], [-22, -6], [16, -4]].forEach(p => { ell(p[0], p[1], 3, 2); ctx.fill(); });
+  } },
+  gear: { type: 'bot', draw() {
+    rice();
+    ctx.save(); ctx.translate(0, -44); ctx.rotate(now * 0.8);
+    ctx.beginPath();
+    for (let i = 0; i < 20; i++) {
+      const a = i * Math.PI / 10, r0 = i % 2 ? 19 : 26;
+      ctx.lineTo(Math.cos(a - 0.12) * r0, Math.sin(a - 0.12) * r0); ctx.lineTo(Math.cos(a + 0.12) * r0, Math.sin(a + 0.12) * r0);
+    }
+    ctx.closePath();
+    const g = ctx.createRadialGradient(-8, -8, 2, 0, 0, 28); g.addColorStop(0, '#ffffff'); g.addColorStop(0.5, '#c9d2dc'); g.addColorStop(1, '#6c7782');
+    fs(g, '#38404a', 2.5);
+    ell(0, 0, 8, 8); fs('#2a323b', '#38404a', 2);
+    ctx.restore();
+    noriBand(-30);
+    sparkle(34, -66, 6);
+  } },
+  spring: { type: 'bot', draw() {
+    nori();
+    [[-16, -38, -0.3], [4, -42, 0.05], [20, -38, 0.35]].forEach(([x, y, a]) => {
+      ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+      for (let i = 0; i < 6; i++) { ell(0, -i * 5, 8, 3); ctx.strokeStyle = i % 2 ? '#8d98a4' : '#e6ebf0'; ctx.lineWidth = 3; ctx.stroke(); }
+      ctx.restore();
+    });
+    sparkle(-30, -66, 7); sparkle(30, -70, 5);
+  } },
+  led: { type: 'bot', draw() {
+    nori();
+    [[-18, -38, '#ff4d5e'], [-2, -42, '#4dff88'], [14, -38, '#4db8ff'], [26, -44, '#ffe14d']].forEach(([x, y, c]) => {
+      line(x - 3, y + 2, x - 3, y + 10, '#c8d0d8', 2); line(x + 3, y + 2, x + 3, y + 12, '#c8d0d8', 2);
+      ctx.save(); ctx.shadowColor = c; ctx.shadowBlur = 14 + Math.sin(now * 8 + x) * 6;
+      ctx.beginPath(); ctx.moveTo(x - 7, y + 2); ctx.lineTo(x - 7, y - 8); ctx.arc(x, y - 8, 7, Math.PI, 0); ctx.lineTo(x + 7, y + 2); ctx.closePath();
+      fs(c, OUT, 2); ctx.restore();
+      rr(x - 8, y, 16, 4, 1); fs(c, OUT, 1.5);
+      ell(x - 2.5, y - 10, 2, 3); ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fill();
+    });
+  } },
+  cable: { type: 'bot', draw() {
+    [-25, 25].forEach(x => {
+      rr(x - 25, -38, 50, 34, 10); fs('#24382f', OUT, 3);
+      ell(x, -38, 25, 17); fs('#24382f', OUT, 3);
+      ell(x, -38, 20, 13); fs('#fffaf0');
+      ell(x, -38, 13, 9); fs('#3a3f46', '#22262b', 2);
+      [[-5, -2, '#e8453c'], [5, -2, '#3c7be0'], [0, 4, '#f2c94c']].forEach(([dx, dy, c]) => {
+        ell(x + dx, -38 + dy * 0.7, 4.2, 3); ctx.fillStyle = c; ctx.fill();
+        ell(x + dx, -38 + dy * 0.7, 1.6, 1.2); ctx.fillStyle = '#d98a3a'; ctx.fill();
+      });
+    });
+    sparkle(0, -66, 7);
   } }
 };
-const HUMAN_IDS = ['salmon', 'tuna', 'tamago', 'shrimp', 'ikura'];
-const BOT_IDS = ['screw', 'battery', 'ram', 'usb', 'bearing'];
+const FOOD_TIERS = [
+  { t: 0,  human: ['salmon', 'tuna', 'tamago', 'shrimp', 'ikura'], bot: ['screw', 'battery', 'ram', 'usb', 'bearing'] },
+  { t: 15, human: ['unagi', 'kappa'], bot: ['gear', 'spring'] },
+  { t: 30, human: ['inari', 'hotate'], bot: ['led', 'cable'] }
+];
+const tierOf = id => FOOD_TIERS.findIndex(T => T.human.includes(id) || T.bot.includes(id));
+function unlockedPool(type, e) {
+  const out = [];
+  for (const T of FOOD_TIERS) if (e >= T.t) out.push(...T[type]);
+  return out;
+}
 
 function drawPlate(type) {
   ell(0, 7, 68, 21); ctx.fillStyle = 'rgba(40,20,10,0.25)'; ctx.fill();
@@ -391,7 +491,7 @@ function drawPlate(type) {
     [[-58, 0], [58, 0], [-36, 15], [36, 15]].forEach(p => { ell(p[0], p[1], 3, 2.2); ctx.fill(); });
   }
 }
-function drawDish(id, x, y, s, alpha, withTag) {
+function drawDish(id, x, y, s, alpha, withTag, isNew) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
   if (alpha !== undefined) ctx.globalAlpha = alpha;
   const f = FOODS[id];
@@ -399,8 +499,8 @@ function drawDish(id, x, y, s, alpha, withTag) {
   ctx.save(); ctx.translate(0, 2); f.draw(); ctx.restore();
   if (withTag) {
     ctx.font = `800 13px ${FONT}`;
-    const name = TEXT.foods[id]; const tw = ctx.measureText(name).width + 16;
-    rr(-tw / 2, 28, tw, 21, 7); fs('#fff6e6', OUT, 2);
+    const name = (isNew ? TEXT.newTag + ' ' : '') + TEXT.foods[id]; const tw = ctx.measureText(name).width + 16;
+    rr(-tw / 2, 28, tw, 21, 7); fs(isNew ? '#ffd257' : '#fff6e6', OUT, 2);
     text(name, 0, 39, 13, '#5a3a2c');
   }
   ctx.restore();
@@ -924,23 +1024,30 @@ let girlEat = -1, botEat = -1, girlChew = 0, botChew = 0;
 let fired = {};
 let hasPlayedIntro = false;
 const debug = { noSpawn: false };
+let seenFoods = new Set(), toast = null, lastLevel = 0, lastTier = 0;
 
-const speedAt = e => Math.min(240, 140 + 105 * (1 - Math.exp(-e / 52)));
-const gapAt = e => 190 + 120 * Math.exp(-e / 30);
+// belt speed (px/s): calm for ~4 s, then keeps climbing; hard cap keeps it physically playable
+const speedAt = e => { const t = Math.max(0, e - 4); return Math.min(650, 140 + 7 * t + 0.04 * t * t); };
+// seconds between plates: shrinks steadily, floor 0.45 s
+const intervalAt = e => Math.max(0.45, 2.2 * Math.exp(-Math.max(0, e - 4) / 24));
+const gapAt = e => intervalAt(e) * speedAt(e);
 
 function chooseFood() {
   let type = Math.random() < 0.5 ? 'human' : 'bot';
   if (lastTypes.length >= 3 && lastTypes.slice(-3).every(t => t === lastTypes[lastTypes.length - 1])) {
     type = lastTypes[lastTypes.length - 1] === 'human' ? 'bot' : 'human';
   }
-  const pool = (type === 'human' ? HUMAN_IDS : BOT_IDS).filter(id => id !== lastFood);
+  const pool = unlockedPool(type, playT).filter(id => id !== lastFood);
   const id = pick(pool);
   lastTypes.push(type); if (lastTypes.length > 6) lastTypes.shift();
   lastFood = id;
   return id;
 }
 function spawnPlate(id, x) {
-  const p = { id: ++plateId, food: id || chooseFood(), x: x === undefined ? -PLATE_HW - 6 : x, state: 'belt', dx: 0, dy: 0, t: 0, from: null };
+  const food = id || chooseFood();
+  const isNew = state === 'play' && tierOf(food) > 0 && !seenFoods.has(food);
+  seenFoods.add(food);
+  const p = { id: ++plateId, food, isNew, x: x === undefined ? -PLATE_HW - 6 : x, state: 'belt', dx: 0, dy: 0, t: 0, from: null };
   plates.push(p);
   return p;
 }
@@ -960,7 +1067,7 @@ function resetRun() {
   plates = []; parts = []; score = 0; newBest = false; failKind = null; failPlate = null;
   beltOffset = 0; playT = 0; failT = 0; distSince = 0; nextGap = 0;
   drag = null; hoverZone = null; girlEat = -1; botEat = -1; fired = {};
-  lastTypes = []; lastFood = null;
+  lastTypes = []; lastFood = null; seenFoods = new Set(); toast = null; lastLevel = 0; lastTier = 0;
   speed = speedAt(0);
 }
 function startIntro() {
@@ -1028,6 +1135,7 @@ function dropPlate(p) {
 /* ========================= update ========================= */
 function update(dt) {
   now += dt;
+  if (debug.freeze) return;
   updateBlink(dt);
   updateParts(dt);
 
@@ -1054,6 +1162,11 @@ function update(dt) {
   if (state === 'play') {
     playT += dt;
     speed = speedAt(playT);
+    const lvl = Math.floor(playT / 10);
+    if (lvl > lastLevel) { lastLevel = lvl; toast = { text: TEXT.speedUp, t: 0 }; SFX.beltStart(); }
+    const tier = FOOD_TIERS.reduce((a, T, i) => playT >= T.t ? i : a, 0);
+    if (tier > lastTier) { lastTier = tier; toast = { text: TEXT.newMenu, t: 0, gold: true }; SFX.ding(); }
+    if (toast) { toast.t += dt; if (toast.t > 1.4) toast = null; }
     beltOffset += speed * dt;
     for (const p of plates) {
       if (p.state === 'belt' || p.state === 'drag' || p.state === 'return') p.x += speed * dt;
@@ -1074,7 +1187,7 @@ function update(dt) {
       if (distSince >= nextGap) {
         spawnPlate();
         distSince = 0;
-        nextGap = Math.max(140 * PS + 50, gapAt(playT) * rand(0.85, 1.25));
+        nextGap = Math.max(140 * PS + 50, gapAt(playT) * rand(0.85, 1.2));
       }
     }
     // miss: any plate (including one being held!) fully out the right side
@@ -1267,7 +1380,7 @@ function render() {
         const a = 0.5 + 0.5 * Math.sin(now * 14);
         ell(p.x, beltY + 4, 70 * PS, 26 * PS); ctx.fillStyle = `rgba(255,70,70,${0.25 + 0.25 * a})`; ctx.fill();
       }
-      drawDish(p.food, p.x, beltY, PS, undefined, true);
+      drawDish(p.food, p.x, beltY, PS, undefined, true, p.isNew);
     }
   }
   drawHatches();
@@ -1302,6 +1415,16 @@ function render() {
   }
 
   drawParts();
+  if (toast && state === 'play') {
+    const k = easeBack(seg(toast.t, 0, 0.25)), a = 1 - seg(toast.t, 1.1, 1.4);
+    ctx.save(); ctx.globalAlpha = a;
+    const ty = (tableY + 86 + beltTop - 24) / 2;
+    ctx.translate(400, ty); ctx.scale(k * U, k * U); ctx.rotate(-0.04);
+    ctx.font = `800 30px ${FONT}`; const tw = ctx.measureText(toast.text).width + 40;
+    rr(-tw / 2, -24, tw, 48, 24); fs(toast.gold ? '#ffd257' : '#f0703f', OUT, 3.5);
+    text(toast.text, 0, 2, 30, toast.gold ? '#5a3a2c' : '#ffffff');
+    ctx.restore();
+  }
   drawBubbles();
   drawHUD();
   drawOverlays();

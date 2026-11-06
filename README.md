@@ -4,8 +4,8 @@
 
 Yuki takes her very serious robot, Bolt, out for conveyor-belt sushi. Your job is to hand out the plates:
 
-- **Sushi → Yuki** (salmon nigiri, tuna gunkan, tamago, shrimp, ikura)
-- **Hardware → Bolt** (screw gunkan, lithium tamago, RAM maki, USB tempura, ball-bearing gunkan)
+- **Sushi → Yuki**: salmon, tuna, tamago, shrimp and ikura, then unagi, cucumber maki, inari and scallop
+- **Hardware → Bolt**: screw gunkan, lithium tamago, RAM maki, USB tempura and ball-bearing gunkan, then gear nigiri, spring gunkan, LED ikura and cable maki
 
 If you get it wrong, the date goes very, very badly.
 
@@ -20,7 +20,7 @@ If you get it wrong, the date goes very, very badly.
 ## How to play
 
 - **Drag** a plate onto the right diner, or **tap** it to pick it up and then tap a diner.
-- Each correct plate is worth 1 point, and the belt slowly speeds up.
+- Each correct plate is worth 1 point. The belt keeps speeding up, and new dishes join the menu at 15 s and 30 s.
 - The game ends **as soon as one plate leaves the belt on the right**. There are no lives, and holding on to a plate doesn't stop it from moving along.
 - There are three ways to lose, and each has its own reaction:
   - Feed sushi to Bolt and he crashes: *ORGANIC COMPATIBILITY TEST: FAILED*

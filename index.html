@@ -1026,10 +1026,13 @@ let hasPlayedIntro = false;
 const debug = { noSpawn: false };
 let seenFoods = new Set(), toast = null, lastLevel = 0, lastTier = 0;
 
-// belt speed (px/s): calm for ~4 s, then keeps climbing; hard cap keeps it physically playable
-const speedAt = e => { const t = Math.max(0, e - 4); return Math.min(650, 140 + 7 * t + 0.04 * t * t); };
-// seconds between plates: shrinks steadily, floor 0.45 s
-const intervalAt = e => Math.max(0.45, 2.2 * Math.exp(-Math.max(0, e - 4) / 24));
+// belt speed (px/s): calm for ~4 s, ramps up, then (around score ~28, ~33 s) the climb slows to a gentle creep
+const RAMP_END = 33;
+const speedRamp = e => { const t = Math.max(0, e - 4); return 140 + 7 * t + 0.04 * t * t; };
+const speedAt = e => e <= RAMP_END ? speedRamp(e) : Math.min(520, speedRamp(RAMP_END) + 2.2 * (e - RAMP_END));
+// seconds between plates: shrinks quickly at first, then slowly; floor 0.5 s
+const intervalRamp = e => 2.2 * Math.exp(-Math.max(0, e - 4) / 24);
+const intervalAt = e => e <= RAMP_END ? intervalRamp(e) : Math.max(0.5, intervalRamp(RAMP_END) * Math.exp(-(e - RAMP_END) / 90));
 const gapAt = e => intervalAt(e) * speedAt(e);
 
 function chooseFood() {
